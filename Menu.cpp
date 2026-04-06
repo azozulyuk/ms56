@@ -1,6 +1,6 @@
 /* Citation and Sources...
 -----------------------------------------------------------
-Final Project Milestone 4:4
+Final Project Milestone 4:4 
 Module: 4
 Filename: Menu.cpp
 -----------------------------------------------------------
@@ -15,7 +15,7 @@ Version Date      Reason
 V0.7    2025/04/1  Completing code
 V0.8    2025/04/4  Debugged
 V0.9    -         Asked prof for help for XYZ
-V1.0    2026/04/4  Ready for submission
+V1.0    2026/04/6  Ready for submission
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my work for function main,ect.
@@ -24,6 +24,7 @@ that my professor provided to complete my work for function main,ect.
 #define _CRT_SECURE_NO_WARNINGS
 #include "Menu.h"
 #include <cstring>
+#include <iostream>
 using namespace std;
 namespace seneca {
     Menu::Menu(const char* title, const char* exit, int indent) {
@@ -39,21 +40,29 @@ namespace seneca {
         }
         return *this;
     }
-    int Menu::run() const {
+      int Menu::run() const {
         int choice;
-        for (int i = 0; i < m_indent +4; i++) cout << ' ';
-        cout << m_title << endl;
+
+        for (int i = 0; i < m_indent; i++) cout << ' ';
+        if (m_indent == 0)
+            cout << m_title << " " << endl;
+        else
+            cout << m_title << endl;
         for (int i = 0; i < m_count; i++) {
-            for (int j = 0; j < m_indent +5; j++) cout << ' ';
+            for (int j = 0; j < m_indent + 1; j++) cout << ' ';
             cout << (i + 1) << "- " << m_items[i] << endl;
         }
-        for (int i = 0; i < m_indent  +5; i++) cout << ' ';
+
+        for (int i = 0; i < m_indent + 1; i++) cout << ' ';
         cout << "0- " << m_exit << endl;
-        for (int i = 0; i < m_indent + 4; i++) cout << ' ';
+
+        if (m_indent > 0)
+            for (int i = 0; i < m_indent; i++) cout << ' ';
+
 
         cout << "> ";
+
         cin >> choice;
         return choice;
     }
 }
-
