@@ -29,11 +29,12 @@ that my professor provided to complete my work for function main,ect.
 namespace seneca {
 
     class Menu {
-        char m_title[51];
-        char m_exit[51];
-        int m_indent;
-        int m_count;
-        char m_items[20][51];
+           char m_title[256];
+    char m_exit[256];
+    int m_indent;
+    int m_count;
+    char m_items[20][51];
+
 
     public:
         Menu(const char* title, const char* exit, int indent);
