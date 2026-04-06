@@ -61,8 +61,20 @@ namespace seneca {
 
 
         cout << "> ";
+      bool done = false;
 
-        cin >> choice;
-        return choice;
+       while (!done) {
+    cin >> choice;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid Integer, try again: ";
+        }else if (choice < 0 || choice > m_count) {
+            cout << "Invalid selection, try again: ";
+        } else {
+            done = true;
+        }
     }
+    return choice;
 }
