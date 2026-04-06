@@ -15,7 +15,7 @@ Version Date      Reason
 V0.7    2025/04/1  Completing code
 V0.8    2025/04/4  Debugged
 V0.9    -         Asked prof for help for XYZ
-V1.0    2026/04/4  Ready for submission
+V1.0    2026/04/6  Ready for submission
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my work for function main,ect.
