@@ -26,13 +26,16 @@ that my professor provided to complete my work for function main,ect.
 #include <cstring>
 #include <iostream>
 using namespace std;
+
 namespace seneca {
+
     Menu::Menu(const char* title, const char* exit, int indent) {
         strcpy(m_title, title);
         strcpy(m_exit, exit);
         m_indent = indent;
         m_count = 0;
     }
+
     Menu& Menu::operator<<(const char* item) {
         if (m_count < 20) {
             strcpy(m_items[m_count], item);
@@ -40,7 +43,8 @@ namespace seneca {
         }
         return *this;
     }
-      int Menu::run() const {
+
+    int Menu::run() const {
         int choice;
 
         for (int i = 0; i < m_indent; i++) cout << ' ';
@@ -48,6 +52,7 @@ namespace seneca {
             cout << m_title << " " << endl;
         else
             cout << m_title << endl;
+
         for (int i = 0; i < m_count; i++) {
             for (int j = 0; j < m_indent + 1; j++) cout << ' ';
             cout << (i + 1) << "- " << m_items[i] << endl;
@@ -59,29 +64,30 @@ namespace seneca {
         if (m_indent > 0)
             for (int i = 0; i < m_indent; i++) cout << ' ';
 
+        cout << "> ";
 
-       cout << "> ";
+        bool done = false;
 
-int choice;
-bool done = false;
+        while (!done) {
 
-while (!done) {
+            cin >> choice;
 
-    cin >> choice;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Invalid Integer, try again: ";
+            }
+            else if (choice < 0 || choice > m_count) {
+                cin.ignore(1000, '\n');
+                cout << "Invalid selection, try again: ";
+            }
+            else {
+                cin.ignore(1000, '\n');
+                done = true;
+            }
+        }
 
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cout << "Invalid Integer, try again: ";
+        return choice;
     }
-    else if (choice < 0 || choice > m_count) {
-        cin.ignore(1000, '\n');
-        cout << "Invalid selection, try again: ";
-    }
-    else {
-        cin.ignore(1000, '\n');  
-        done = true;
-    }
+
 }
-
-return choice;
