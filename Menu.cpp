@@ -66,28 +66,28 @@ namespace seneca {
 
         cout << "> ";
 
-        bool done = false;
+       bool done = false;
 
-        while (!done) {
+while (!done) {
+    if (cin.peek() == '\n') {
+        cout << "You must enter a value: ";
+        cin.ignore(1000, '\n');
+        continue;
+    }
+    if (!(cin >> choice)) {
+        cin.clear();
 
-            cin >> choice;
-
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(1000, '\n');
-                cout << "Invalid Integer, try again: ";
-            }
-            else if (choice < 0 || choice > m_count) {
-                cin.ignore(1000, '\n');
-                cout << "Invalid selection, try again: ";
-            }
-            else {
-                cin.ignore(1000, '\n');
-                done = true;
-            }
+        char bad[100];
+        cin >> bad;
+        cout << "Invalid integer: " << bad << endl;
+        cout << "Only an integer please: ";
+    }  else {
+        if (choice < 0 || choice > m_count) {
+            cout << "Invalid value: [0<= value <=" << m_count << "], try again: ";
+        }  else {
+            done = true;
         }
-
-        return choice;
     }
 
+    cin.ignore(1000, '\n');
 }
