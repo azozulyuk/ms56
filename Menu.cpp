@@ -1,6 +1,6 @@
 /* Citation and Sources...
 -----------------------------------------------------------
-Final Project Milestone 4:4 
+Final Project Milestone 4:4
 Module: 4
 Filename: Menu.cpp
 -----------------------------------------------------------
@@ -26,16 +26,13 @@ that my professor provided to complete my work for function main,ect.
 #include <cstring>
 #include <iostream>
 using namespace std;
-
 namespace seneca {
-
     Menu::Menu(const char* title, const char* exit, int indent) {
         strcpy(m_title, title);
         strcpy(m_exit, exit);
         m_indent = indent;
         m_count = 0;
     }
-
     Menu& Menu::operator<<(const char* item) {
         if (m_count < 20) {
             strcpy(m_items[m_count], item);
@@ -43,9 +40,10 @@ namespace seneca {
         }
         return *this;
     }
-
     int Menu::run() const {
-        int choice;
+        int choice = 0;
+        bool done = false;
+        char line[128];
 
         for (int i = 0; i < m_indent; i++) cout << ' ';
         if (m_indent == 0)
@@ -66,28 +64,37 @@ namespace seneca {
 
         cout << "> ";
 
-       bool done = false;
+        while (!done) {
 
-while (!done) {
-    if (cin.peek() == '\n') {
-        cout << "You must enter a value: ";
-        cin.ignore(1000, '\n');
-        continue;
-    }
-    if (!(cin >> choice)) {
-        cin.clear();
+            cin.getline(line, 128);
 
-        char bad[100];
-        cin >> bad;
-        cout << "Invalid integer: " << bad << endl;
-        cout << "Only an integer please: ";
-    }  else {
-        if (choice < 0 || choice > m_count) {
-            cout << "Invalid value: [0<= value <=" << m_count << "], try again: ";
-        }  else {
+            if (line[0] == '\0') {
+                cout << "You must enter a value: ";
+                continue;
+            }
+
+            char* end;
+            choice = (int)strtol(line, &end, 10);
+
+            if (end == line) {
+                cout << "Invalid value: [0<= value <=" << m_count << "], try again: ";
+                continue;
+            }
+
+            if (*end != '\0') {
+                cout << "Invalid integer: " << line << endl;
+                cout << "Only an integer please: ";
+                continue;
+            }
+
+            if (choice < 0 || choice > m_count) {
+                cout << "Invalid value: [0<= value <=" << m_count << "], try again: ";
+                continue;
+            }
+
             done = true;
         }
-    }
 
-    cin.ignore(1000, '\n');
+        return choice;
+    }
 }
