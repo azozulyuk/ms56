@@ -64,37 +64,38 @@ namespace seneca {
 
         cout << "> ";
 
-        while (!done) {
+    while (!done) {
 
-            cin.getline(line, 128);
+    cin.getline(line, 128);
 
-            if (line[0] == '\0') {
-                cout << "You must enter a value: ";
-                continue;
-            }
+    if (line[0] == '\0') {
+        cout << "You must enter a value: ";
+        continue;
+    }
 
-            char* end;
-            choice = (int)strtol(line, &end, 10);
+    char* end;
+    long val = strtol(line, &end, 10);
 
-            if (end == line) {
-                cout << "Invalid value: [0<= value <=" << m_count << "], try again: ";
-                continue;
-            }
+    if (end == line) {
+        cout << "Invalid value: [0<= value <=" << m_count << "], try again: ";
+        continue;
+    }
 
-            if (*end != '\0') {
-                cout << "Invalid integer: " << line << endl;
-                cout << "Only an integer please: ";
-                continue;
-            }
+    if (*end != '\0') {
+        cout << "Invalid integer: " << line << endl;
+        cout << "Only an integer please: ";
+        continue;
+    }
 
-            if (choice < 0 || choice > m_count) {
-                cout << "Invalid value: [0<= value <=" << m_count << "], try again: ";
-                continue;
-            }
+    choice = (int)val;
 
-            done = true;
-        }
+    if (choice < 0 || choice > m_count) {
+        cout << "Invalid value: [0<= value <=" << m_count << "], try again: ";
+        continue;
+    }
 
+    done = true;
+}
         return choice;
     }
 }
